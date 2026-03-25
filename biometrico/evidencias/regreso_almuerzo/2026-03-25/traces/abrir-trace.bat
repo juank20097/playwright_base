@@ -1,0 +1,2 @@
+npx playwright show-trace "C:\Users\juan.estevez\Documents\docker\playwright\biometrico\evidencias\regreso_almuerzo\2026-03-25\traces\trace-2026-03-25T19-14-28-434Z.zip"
+pause
