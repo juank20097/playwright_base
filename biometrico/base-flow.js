@@ -74,7 +74,7 @@ async function runFlow(flowFunction) {
     }
 
     const browser = await chromium.launch({
-        headless: false,
+        headless: true,
         slowMo: 300
     });
 
@@ -130,10 +130,9 @@ async function runFlow(flowFunction) {
                 fullPage: true
             });
             addStep('captura_error', 'Captura del error', errorShot);
-        } catch (_) {}
+        } catch (_) { }
 
         console.error('❌ Error durante la ejecución:', error);
-        throw error;
 
     } finally {
         traceFile = path.join(TRACE_DIR, `trace-${timestamp}.zip`);
@@ -318,8 +317,22 @@ La ejecución del flujo **${scriptName}.js** finalizó y generó las evidencias 
             'utf8'
         );
 
-        await context.close();
-        await browser.close();
+        try {
+            await context.close();
+            console.log('✅ Context cerrado');
+        } catch (e) {
+            console.error('❌ Error cerrando context:', e.message);
+        }
+
+        try {
+            await browser.close();
+            console.log('✅ Browser cerrado');
+        } catch (e) {
+            console.error('❌ Error cerrando browser:', e.message);
+        }
+
+        console.log('🏁 Cerrando proceso Node...');
+        process.exit(executionStatus.includes('❌') ? 1 : 0);
     }
 }
 

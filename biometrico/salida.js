@@ -19,13 +19,13 @@ runFlow(async ({ page, takeShot, addStep }) => {
         await page.locator('#markingtype').selectOption('13');
         await takeShot(page, '04-filtros-iniciales', 'Filtros iniciales seleccionados');
 
-        // await page.getByRole('button', { name: 'Registrar Marcación Presencial' }).click();
-        // const confirmarBtn = page.getByRole('button', { name: 'Si, Registrar!' });
-        // await confirmarBtn.waitFor({ state: 'visible', timeout: 10000 });
-        // await confirmarBtn.scrollIntoViewIfNeeded();
-        // await confirmarBtn.click();
-        // await page.waitForLoadState('networkidle');
-        // await takeShot(page, '05-registrar-marcacion', 'Registrar marcación presencial');
+        await page.getByRole('button', { name: 'Registrar Marcación Presencial' }).click();
+        const confirmarBtn = page.getByRole('button', { name: 'Si, Registrar!' });
+        await confirmarBtn.waitFor({ state: 'visible', timeout: 10000 });
+        await confirmarBtn.scrollIntoViewIfNeeded();
+        await confirmarBtn.click();
+        await page.waitForLoadState('networkidle');
+        await takeShot(page, '05-registrar-marcacion', 'Registrar marcación presencial');
 
         await page.getByRole('link', { name: 'Reporte Asistencia General' }).click();
         await page.waitForLoadState('networkidle');
