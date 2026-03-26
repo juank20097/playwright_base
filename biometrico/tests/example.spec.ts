@@ -2,9 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
-
-  // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
+});
+
+test('falla a propósito para probar screenshot y video', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+
+  // Falla intencional
+  expect(1).toBe(2);
 });
 
 test('get started link', async ({ page }) => {
